@@ -1,5 +1,4 @@
-package 과제_2주차
-
+import kotlin.math.abs
 open class Circle{
     var radius: Double
     var center: MutableList<Double> = mutableListOf<Double>()
@@ -49,43 +48,44 @@ fun circleStatus(c1: Circle, c2: Circle): Double{
     val shortestD: Double
     if(c1.radius+c2.radius<d) {
         shortestD=d-c1.radius-c2.radius
-        System.out.println("원 c1과 원 c2는 서로 밖에 존재한다.")
+        println("원 c1과 원 c2는 서로 밖에 존재한다.")
     }
     else if(c1.radius+c2.radius==d){
         shortestD=0.0
-        System.out.println("원 c1과 원 c2는 외접한다.")
+        println("원 c1과 원 c2는 외접한다.")
+    }
+    else if(Overlaped(c1,c2)<d){
+        shortestD=0.0
+        println("원 c1과 원 c2는 겹친다.")
     }
     else {
         if(c1.radius>c2.radius) {
             if(c1.radius-c2.radius==d) {
                 shortestD=0.0
-                System.out.println("원 c1과 원 c2는 내접한다.")
-            }
-            else if(c1.radius-c2.radius<d) {
-                shortestD=0.0
-                System.out.println("원 c1과 원 c2는 겹친다.")
+                println("원 c1과 원 c2는 내접한다.")
             }
             else {
                 shortestD=c1.radius-(d+c2.radius);
-                System.out.println("원 c2가 원 c1 안에 있다.")
+                println("원 c2가 원 c1 안에 있다.")
             }
         }
         else {
             if(c2.radius-c1.radius==d) {
                 shortestD= 0.0
-                System.out.println("원 c1과 원 c2는 내접한다.")
-            }
-            else if(c2.radius-c1.radius<d) {
-                shortestD=0.0
-                System.out.println("원 c2와 원 c1은 겹친다.")
+                println("원 c1과 원 c2는 내접한다.")
             }
             else {
                 shortestD=c2.radius-(d+c1.radius);
-                System.out.println("원 c1이 원 c2 안에 있다.")
+                println("원 c1이 원 c2 안에 있다.")
             }
         }
     }
     return shortestD
+}
+
+fun Overlaped(c1: Circle, c2: Circle): Double{
+    val subtraction = abs(c1.radius-c2.radius)
+    return subtraction
 }
 /*
 a. 'Circle' 클래스를 선언하고, 그 속성으로 "반지름" "중심 좌표"를 각각 int, list로 구현하여라.
